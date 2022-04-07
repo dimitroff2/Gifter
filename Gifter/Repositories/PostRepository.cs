@@ -324,6 +324,63 @@ namespace Gifter.Repositories
             }
         }
 
+        public List<Post> SearchByDate(DateTime since)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    var sql =
+                        @"SELECT p.Id AS PostId, p.Title, p.Caption, p.DateCreated,  
+                        p.ImageUrl AS PostImageUrl, p.UserProfileId,
+
+                        up.Name, up.Bio, up.Email, up.DateCreated AS UserProfileDateCreated, 
+                        up.ImageUrl AS UserProfileImageUrl
+                    FROM Post p 
+                        LEFT JOIN UserProfile up ON p.UserProfileId = up.id
+                    
+                    WHERE p.DateCreated >= @Since
+                    Order by p.DateCreated";
+
+                    //Where is the parameters set where it will be seaching the SQL
+                    //add.parameter is translating the sql back into c# 
+                    //@since is telling code to search for everything after this date
+
+                    cmd.CommandText = sql;
+                    DbUtils.AddParameter(cmd, "@Since", $"{since}");
+                    var reader = cmd.ExecuteReader();
+
+
+                    var posts = new List<Post>();
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "PostId"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Caption = DbUtils.GetString(reader, "Caption"),
+                            DateCreated = DbUtils.GetDateTime(reader, "DateCreated"),
+                            ImageUrl = DbUtils.GetString(reader, "PostImageUrl"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                Name = DbUtils.GetString(reader, "Name"),
+                                Email = DbUtils.GetString(reader, "Email"),
+                                DateCreated = DbUtils.GetDateTime(reader, "UserProfileDateCreated"),
+                                ImageUrl = DbUtils.GetString(reader, "UserProfileImageUrl"),
+                            },
+                        });
+                    }
+
+                    reader.Close();
+
+                    return posts;
+                }
+            }
+        }
+
 
 
     }

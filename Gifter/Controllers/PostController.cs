@@ -64,5 +64,13 @@ namespace Gifter.Controllers
             return Ok(_postRepository.Search(q, sortDesc));
         }
 
+        [HttpGet("hottest")]
+        public IActionResult SearchByDate(DateTime since)
+        {
+            return Ok(_postRepository.SearchByDate(since));
+        }
+
+        //For it to show up on swagger it must have corrosponding controller which also means it must exist in the Irepository as well as repository
+
     }
 }
