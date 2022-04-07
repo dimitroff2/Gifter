@@ -12,5 +12,8 @@ namespace Gifter.Repositories
         void Update(Post post);
 
         List<Post> Search(string criterion, bool sortDescending);
+
+
+
     }
 }

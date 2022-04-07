@@ -264,7 +264,7 @@ namespace Gifter.Repositories
                 }
             }
         }
-
+        // adding search feature 
         public List<Post> Search(string criterion, bool sortDescending)
         {
             using (var conn = Connection)
@@ -323,6 +323,9 @@ namespace Gifter.Repositories
                 }
             }
         }
+
+
+
     }
 
 
