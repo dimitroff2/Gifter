@@ -6,7 +6,7 @@ export const PostProvider = (props) => {
   const [posts, setPosts] = useState([]);
 
   const getAllPosts = () => {
-    return fetch("https://localhost:44373/api/Post")
+    return fetch("/api/Post")
       .then((res) => res.json())
       .then(setPosts);
   };
@@ -21,8 +21,12 @@ export const PostProvider = (props) => {
     });
   };
 
+  const getPost = (id) => {
+    return fetch(`/api/post/${id}`).then((res) => res.json());
+};
+
   return (
-    <PostContext.Provider value={{ posts, getAllPosts, addPost }}>
+    <PostContext.Provider value={{ posts, getAllPosts, addPost, getPost }}>
       {props.children}
     </PostContext.Provider>
   );

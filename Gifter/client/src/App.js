@@ -4,7 +4,7 @@ import "./App.css";
 import ApplicationViews from "./components/ApplicationViews";
 
 
-function App() {
+export function App() {
   return (
     <div className="App">
       <Router>
@@ -14,4 +14,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

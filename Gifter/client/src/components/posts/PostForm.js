@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { PostContext } from "../providers/PostProvider";
+import { PostContext } from "../../providers/PostProvider";
 import { useNavigate } from "react-router-dom";
 import Post from "./Post";
 
@@ -76,5 +76,7 @@ const PostForm = () => {
         </form>
     )
 }
+
+export default PostForm
      
   
