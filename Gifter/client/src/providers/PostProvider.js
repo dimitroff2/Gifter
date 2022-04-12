@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "./UserProvider";
 
 export const PostContext = React.createContext();
 
 export const PostProvider = (props) => {
   const [posts, setPosts] = useState([]);
+  // const { user, setUser } = useContext(UserContext);
 
   const getAllPosts = () => {
     return fetch("/api/Post")
@@ -24,6 +26,9 @@ export const PostProvider = (props) => {
   const getPost = (id) => {
     return fetch(`/api/post/${id}`).then((res) => res.json());
 };
+
+
+
 
   return (
     <PostContext.Provider value={{ posts, getAllPosts, addPost, getPost }}>

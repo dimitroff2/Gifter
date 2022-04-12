@@ -62,7 +62,7 @@ namespace Gifter.Repositories
                           FROM UserProfile up
                      LEFT JOIN Post p ON p.UserProfileId = up.id
                      LEFT JOIN Comment c on c.PostId = p.id
-                         WHERE Id = @Id";
+                         WHERE p.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
@@ -74,10 +74,11 @@ namespace Gifter.Repositories
                         user = new UserProfile()
                         {
                             Id = id,
+                            //Id = DbUtils.GetInt(reader,"UserProfileId"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Email = DbUtils.GetString(reader, "Email"),
-                            DateCreated = DbUtils.GetDateTime(reader, "DateCreated"),
-                            ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                            DateCreated = DbUtils.GetDateTime(reader, "UserProfileDateCreated"),
+                            ImageUrl = DbUtils.GetString(reader, "UserProfileImageUrl"),
                             Bio = DbUtils.GetString(reader, "Bio"),
                         };
                     }

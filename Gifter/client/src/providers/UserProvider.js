@@ -4,12 +4,13 @@ export const UserContext = React.createContext();
 
 
 export const UserProvider = (props) => {
-    const [users, setUsers] = useState([]);
+    const [user, setUser] = useState([]);
+    
 
   const getAllUsers = () => {
     return fetch("/api/UserProfile")
       .then((res) => res.json())
-      .then(setUsers);
+      .then(setUser);
   };
 
   const addUser = (user) => {
@@ -26,8 +27,12 @@ export const UserProvider = (props) => {
     return fetch(`/api/UserProfile/${id}`).then((res) => res.json());
 };
 
+const getPostByUsers = (id) => {
+return fetch(`https://localhost:5001/api/UserProfile/UserPosts/${id}`).then((res) => res.json());
+};
+
   return (
-    <UserContext.Provider value={{ users, getAllUsers, addUser, getUser }}>
+    <UserContext.Provider value={{ user, getAllUsers, addUser, getUser, getPostByUsers }}>
       {props.children}
     </UserContext.Provider>
   );
