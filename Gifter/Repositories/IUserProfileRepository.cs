@@ -6,6 +6,7 @@ namespace Gifter.Repositories
     public interface IUserProfileRepository
     {
         void Add(UserProfile user);
+
         UserProfile GetByEmail(string email);
 
         void Delete(int id);
@@ -13,7 +14,8 @@ namespace Gifter.Repositories
         List<UserProfile> GetAll();
         UserProfile GetById(int id);
         UserProfile GetUserProfileIdWithPostsAndComments(int id);
+    } 
 
 
-    }
+    
 }

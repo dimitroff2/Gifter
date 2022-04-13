@@ -6,6 +6,9 @@ import Post from "../posts/Post";
 import User from "./User";
 // import { PostContext } from "../../providers/PostProvider";
 
+//User from User.js
+//user from UserProvider.js
+
 
  const UserPosts = () => {
      const{user, getPostByUsers} = useContext(UserContext);
